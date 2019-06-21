@@ -1,10 +1,13 @@
 <h1 align="center">Spinny</h1> 
-<p align="center">Another terminal spinner written in Bash. Customizable and pretty :lipstick:</p>
+
+<div align="center"><img src="demo.gif"/></div>
 
 <p align="center">
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/contains-cat-gifs.svg"></a>
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/made-with-crayons.svg"></a>
 </p>
+
+<p align="center">Yet another terminal spinner written in Bash. Customizable and pretty :lipstick:</p>
 
 <br>
 

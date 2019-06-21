@@ -15,6 +15,7 @@ default_spinner() {
 dots_spinner() {
   SPINNY_STYLE=DOTS
   SPINNY_DELAY=0.2
+  SPINNY_CUSTOM_SIZE=1
   printf "or something more fancy... "
   spinny::start
   sleep 4
@@ -35,7 +36,7 @@ clock_spinner() {
 custom_spinner() {
   SPINNY_STYLE=CUSTOM
   SPINNY_CUSTOM_CHARS="🌎🌍🌏"
-  SPINNY_CUSTOM_SIZE=2
+  SPINNY_CUSTOM_SIZE=1
   SPINNY_DELAY=0.3
   printf "or show anything you like... "
   spinny::start
