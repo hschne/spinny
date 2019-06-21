@@ -30,15 +30,10 @@ spinny::_spinner() {
   do
     for i in $(seq 0 "$length")
     do
-      # TODO: Improve to truly support multi charactersa
+      # TODO: Improve to truly support any custom character sequence
       # See https://gist.github.com/zulaica/9e971cc5b6dbd156abcd13745beff262
       printf "%s" "${__spinny__chars:$i:1}"
       for x in $(seq 1 "$__spinny__char_size"); do printf "\b"; done
-      # if [[ -z "$__spinny__char_size"  ]]; then
-      #   printf "\b"
-      # else
-      #   printf "\b\b"
-      # fi
       sleep "$delay"
     done
   done
@@ -49,7 +44,7 @@ shopt -s nocasematch
 case "$SPINNY_STYLE" in
   CLOCK*)
     __spinny__chars="🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛"
-    __spinny__char_size=2
+    __spinny__char_size=${SPINNY_CUSTOM_SIZE:-1}
     ;;
   DOTS*)
     __spinny__chars="⠇⠋⠙⠸⠦"

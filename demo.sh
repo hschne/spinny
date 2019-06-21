@@ -44,7 +44,6 @@ custom_spinner() {
   printf " \n"
 }
 
-
 default_spinner 
 dots_spinner
 clock_spinner
