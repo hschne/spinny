@@ -4,6 +4,8 @@ declare __spinny__spinner_pid
 
 declare __spinny__chars
 
+declare __spinny__char_size=1
+
 spinny::start() {
   tput civis
   spinny::_spinner &
@@ -21,43 +23,50 @@ spinny::stop() {
 
 spinny::_spinner() {
   local delay=${SPINNY_DELAY:-0.3}
-  local chars=$(spinny::_get_chars)
-  local length=${#chars}
+  spinny::_set_chars
+  local length=${#__spinny__chars}
   ((length--))
   while :
   do
     for i in $(seq 0 "$length")
     do
-      printf "%s" "${chars:$i:1}"
-      local char_length=${#i}
-      ((char_length--))
-      for _ in $(seq 0 "$char_length"); do
-        printf "\010"
-      done
+      # TODO: Improve to truly support multi charactersa
+      # See https://gist.github.com/zulaica/9e971cc5b6dbd156abcd13745beff262
+      printf "%s" "${__spinny__chars:$i:1}"
+      for x in $(seq 1 "$__spinny__char_size"); do printf "\b"; done
+      # if [[ -z "$__spinny__char_size"  ]]; then
+      #   printf "\b"
+      # else
+      #   printf "\b\b"
+      # fi
       sleep "$delay"
     done
   done
 }
 
-spinny::_get_chars() {
+spinny::_set_chars() {
 shopt -s nocasematch
-local result
 case "$SPINNY_STYLE" in
   CLOCK*)
-    result="🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛"
+    __spinny__chars="🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛"
+    __spinny__char_size=2
     ;;
   DOTS*)
-    result="⠇⠋⠙⠸⠦"
+    __spinny__chars="⠇⠋⠙⠸⠦"
+    ;;
+  CUSTOM*)
+    __spinny__chars="${SPINNY_CUSTOM_CHARS:-/|\\-}"
+    __spinny__char_size=${SPINNY_CUSTOM_SIZE:-1}
     ;;
   *)
-    result="/|\\-"
+    __spinny__chars="/|\\-"
     ;;
 esac
 shopt -u nocasematch
-echo "$result"
 }
 
 spinny::_finish(){
+  # Make sure to remove the last character
   printf "\010"
   tput cnorm
 }
