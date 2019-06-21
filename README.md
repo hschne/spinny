@@ -16,7 +16,7 @@
 Simple. First download spinny
 
 ```
-wget https://raw.githubusercontent.com/hschne/gatsh/master/spinny.sh
+wget https://raw.githubusercontent.com/hschne/spinny/master/spinny.sh
 ```
 
 To use it in your shell scripts import it, and you are good to go: 
