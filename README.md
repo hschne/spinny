@@ -1,13 +1,12 @@
 <h1 align="center">Spinny</h1> 
-
-<div align="center"><img src="demo.gif"/></div>
+<p align="center">Yet another terminal spinner written in Bash. Customizable and pretty :lipstick:</p>
 
 <p align="center">
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/contains-cat-gifs.svg"></a>
 <a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/made-with-crayons.svg"></a>
 </p>
 
-<p align="center">Yet another terminal spinner written in Bash. Customizable and pretty :lipstick:</p>
+<div align="center"><img src="demo.gif"/></div>
 
 <br>
 
@@ -35,7 +34,7 @@ Spinny supports various customization options. You can use different styles, cus
 
 ## Notes 
 
-Spinny has been written so should not impact your existing shell scripts. 
+Spinny has been written so that it should not impact your existing shell scripts. 
 
 However, be aware that some animations display differently depending on your font. If you encounter issues when using unicode characters please try to set the `SPINNY_CUSTOM_SIZE` variable.
 
