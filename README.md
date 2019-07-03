@@ -10,9 +10,9 @@
 
 <br>
 
-## How to use this
+## How do I use this?
 
-Simple. First download spinny
+Simple. First download spinny:
 
 ```
 wget https://raw.githubusercontent.com/hschne/spinny/master/spinny.sh
@@ -25,20 +25,34 @@ source spinny.sh
 
 printf "Starting some long running process now... "
 spinny::start
-sleep 4
+sleep 3
 spinny::stop
 printf "Done!\n"
 ```
 
-Spinny supports various customization options. You can use different styles, customize the speed of the animation and more. See [the demo](demo.sh) for more examples!
+Spinny is versatile and can animate pretty much anything you throw at it. The variables `SPINNY_FRAMES` and `SPINNY_DELAY` can be used to change the look of the spinner. The code below will render three dots instead: 
 
-## Notes 
+```
+SPINNY_FRAMES=(. .. ...)
+SPINNY_DELAY=0.1
+printf "Fancy spinners right here: "
+spinny::start
+sleep 3
+spinny::stop
+printf " \n"
+```
 
-Spinny has been written so that it should not impact your existing shell scripts. 
+Have a look at [the demo](demo.sh) for more examples or run it yourself: 
 
-However, be aware that some animations display differently depending on your font. If you encounter issues when using unicode characters please try to set the `SPINNY_CUSTOM_SIZE` variable.
+```
+chmod +x demo.sh && ./demo.sh
+```
 
-Feel free to file issues if you encounter errors. 
+## Contributing
+
+I'm new to this entire bash thing. While I try and keep things portable and dependencies to a minimum, I can't guarantee that Spinny will work on your particular machine.
+
+If you encounter any errors or have ideas for improvements feel free to file an issue! :heart:
 
 ## License
 
