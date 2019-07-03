@@ -22,38 +22,51 @@ dots_spinner() {
 }
 
 clock_spinner() {
-  SPINNY_FRAMES=(🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛)
+  SPINNY_FRAMES=("🕐 " "🕑" "🕒" "🕓" 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛)
   SPINNY_DELAY=0.1
   printf "It can show you the time..."
   spinny::start
   sleep 4
   spinny::stop
-  printf "...\n"
+  printf "  \n"
 }
 
 shrink_spinner() {
   SPINNY_FRAMES=(. .. ... .... ..... " ...." "  ..." "   .." "    ." "      " )
   SPINNY_DELAY=0.1
-  printf "animate different length inputs"
+  printf "and animate different length inputs"
   spinny::start
   sleep 4
   spinny::stop
-  printf "...  \n"
+  printf "!     \n"
 }
 
 crazy_spinner() {
-  SPINNY_FRAMES=("\e[31m=====" "\e[32m=====" "\e[33m=====" "\e[34m=====" "\e[36m=====" )
+  SPINNY_FRAMES=("\e[31mcrazy!" "\e[32mcrazy!" "\e[33mcrazy!" "\e[34mcrazy!" "\e[36mcrazy!" )
   SPINNY_DELAY=0.1
-  printf "animate different length inputs"
+  printf "Go "
   spinny::start
   sleep 4
   spinny::stop
-  printf "...  \n"
+  printf "\e[39mcrazy!\n"
 }
+
 # default_spinner 
 # dots_spinner
 # clock_spinner
 # shrink_spinner
-crazy_spinner
+# crazy_spinner
 
-
+  # SPINNY_FRAMES=(🌎 🌍 🌏)
+SPINNY_FRAMES=(🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛)
+  # SPINNY_FRAMES=("___" "-__" "--_")
+  # SPINNY_FRAMES=("." ".." "...")
+  SPINNY_DELAY=0.3
+  spinny::start
+  sleep 4
+  spinny::stop
+  printf " \n"
+# default_spinner 
+# dots_spinner
+# clock_spinner
+# custom_spinner 

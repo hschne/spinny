@@ -27,7 +27,8 @@ spinny::_spinner() {
     for frame in "${__spinny__frames[@]}"
     do
       printf "%b" "$frame"
-      for _ in $(seq 1 ${#frame}); do printf "\b"; done
+      actual=$(printf "%b" "$frame")
+      for _ in $(seq 1 ${#actual}); do printf "\b"; done
       sleep "$delay"
     done
   done
