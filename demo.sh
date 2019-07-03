@@ -19,7 +19,7 @@ dots_spinner() {
   spinny::start
   sleep 3
   spinny::stop
-  printf ".\n"
+  printf " \n"
 }
 
 clock_spinner() {

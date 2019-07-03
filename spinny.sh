@@ -20,12 +20,15 @@ spinny::stop() {
 
 spinny::_spinner() {
   local delay=${SPINNY_DELAY:-0.3}
-  spinny::_set_chars
+  spinny::_load_frames
   spinny::_pad_frames
   while :
   do
     for frame in "${__spinny__frames[@]}"
     do
+      # After rendering each frame the cursor is reset to 
+      # the previous position so that the next frame can 
+      # overwrite it
       tput sc
       printf "%b" "$frame"
       tput rc
@@ -35,6 +38,10 @@ spinny::_spinner() {
 }
 
 spinny::_pad_frames() {
+  # Frames with different lengths need to be padded
+  # for a smooth animation. We calculate the maximum
+  # size of all frames and pad all smaller ones with
+  # white space.
   local max_length
   max_length=$(spinny::_max_framelength)
   local array_length=${#__spinny__frames[@]}
@@ -42,6 +49,8 @@ spinny::_pad_frames() {
     local frame=${__spinny__frames[i]}
     local frame_length=${#frame}
     diff=$((max_length - frame_length + 1))
+    # This adds the required number of white spaces
+    # to the frame
     # TODO: Replace with pure bash if possible
     filler=$(seq -s ' ' "$diff" |tr -d '[:digit:]')
     __spinny__frames[i]="$frame$filler"
@@ -58,7 +67,8 @@ spinny::_max_framelength() {
   echo "$max"
 }
 
-spinny::_set_chars() {
+spinny::_load_frames() {
+  # Load custom frames if any or fall back on the default animation
   if [[ -z $SPINNY_FRAMES ]]; then 
     __spinny__frames=(- "\\" "|" /)
   else
@@ -67,6 +77,7 @@ spinny::_set_chars() {
 }
 
 spinny::_finish(){
+  # Make sure to remove variables and make the cursor visible again
   unset __spinny__spinner_pid
   unset __spinny__frames
   tput cnorm
