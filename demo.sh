@@ -5,7 +5,7 @@ set -e
 source spinny.sh
 
 default_spinner() {
-  printf "Spinny can be a normal spinner... "
+  printf "Spinny can be a classic spinner..."
   spinny::start
   sleep 4
   spinny::stop
@@ -13,48 +13,47 @@ default_spinner() {
 }
 
 dots_spinner() {
-  SPINNY_STYLE=DOTS
-  SPINNY_DELAY=0.2
-  SPINNY_CUSTOM_SIZE=1
-  printf "or something more fancy... "
+  SPINNY_FRAMES=(⠇ ⠋ ⠙ ⠸ ⠴ ⠦)
+  printf "or a bunch of dots..."
   spinny::start
   sleep 4
   spinny::stop
-  printf " \n"
+  printf ".  \n"
 }
 
 clock_spinner() {
-  SPINNY_STYLE=CLOCK
+  SPINNY_FRAMES=(🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛)
   SPINNY_DELAY=0.1
-  printf "It can show you the time... "
+  printf "It can show you the time..."
   spinny::start
   sleep 4
   spinny::stop
-  printf " \n"
+  printf "...\n"
 }
 
-custom_spinner() {
-  SPINNY_STYLE=CUSTOM
-  SPINNY_CUSTOM_CHARS="🌎🌍🌏"
-  SPINNY_CUSTOM_SIZE=1
-  SPINNY_DELAY=0.3
-  printf "or show anything you like... "
+shrink_spinner() {
+  SPINNY_FRAMES=(. .. ... .... ..... " ...." "  ..." "   .." "    ." "      " )
+  SPINNY_DELAY=0.1
+  printf "animate different length inputs"
   spinny::start
   sleep 4
   spinny::stop
-  printf " \n"
+  printf "...  \n"
 }
 
-  # SPINNY_FRAMES=(🌎 🌍 🌏)
-# SPINNY_FRAMES=(🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛)
-  # SPINNY_FRAMES=("___" "-__" "--_")
-  SPINNY_FRAMES=("." ".." "...")
-  SPINNY_DELAY=0.3
+crazy_spinner() {
+  SPINNY_FRAMES=("\e[31m=====" "\e[32m=====" "\e[33m=====" "\e[34m=====" "\e[36m=====" )
+  SPINNY_DELAY=0.1
+  printf "animate different length inputs"
   spinny::start
   sleep 4
   spinny::stop
-  printf " \n"
+  printf "...  \n"
+}
 # default_spinner 
 # dots_spinner
 # clock_spinner
-# custom_spinner 
+# shrink_spinner
+crazy_spinner
+
+

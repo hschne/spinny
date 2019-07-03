@@ -21,51 +21,48 @@ spinny::stop() {
 spinny::_spinner() {
   local delay=${SPINNY_DELAY:-0.3}
   spinny::_set_chars
-  local length=${#__spinny__frames[@]}
-  ((length--))
+  spinny::_pad_frames
   while :
   do
-    for i in $(seq 0 "$length")
+    for frame in "${__spinny__frames[@]}"
     do
-      local frame="${__spinny__frames[$i]}"
-      printf "%s" "$frame"
-      for x in $(seq 0 "${#frame}"); do printf "\b"; done
+      printf "%b" "$frame"
+      for _ in $(seq 1 ${#frame}); do printf "\b"; done
       sleep "$delay"
     done
   done
 }
 
-spinny::_fill_frames() {
-  local length=${#__spinny__frames[@]}
-  ((length--))
-  for i in $(seq 0 "$length")
-  do
-    local frame="${__spinny__frames[$i]}"
-    printf "%s" "$frame"
-    for x in $(seq 0 "${#frame}"); do printf "\b"; done
-    sleep "$delay"
+spinny::_pad_frames() {
+  local max_length
+  max_length=$(spinny::_max_framelength)
+  local array_length=${#__spinny__frames[@]}
+  for (( i=0; c<array_length; c++ )) do
+    local frame=${__spinny__frames[i]}
+    local frame_length=${#frame}
+    diff=$((max_length - frame_length + 1))
+    # TODO: Replace with pure bash if possible
+    filler=$(seq -s ' ' "$diff" |tr -d '[:digit:]')
+    __spinny__frames[i]="$frame$filler"
   done
 }
 
-spinny::_set_chars() {
-  __spinny__frames=("${SPINNY_FRAMES[@]}")
+spinny::_max_framelength() {
+  local max=${#__spinny__frames[0]}
+  for frame in "${__spinny__frames[@]}"
+  do
+    local len=${#frame}
+    ((len > max)) && max=$len
+  done
+  echo "$max"
+}
 
-# case "$SPINNY_STYLE" in CLOCK*)
-#     __spinny__chars="🕐🕑🕒🕓🕔🕕🕖🕗🕘🕙🕚🕛"
-#     __spinny__char_size=${SPINNY_CUSTOM_SIZE:-1}
-#     ;;
-#   DOTS*)
-#     __spinny__chars="⠇⠋⠙⠸⠦"
-#     ;;
-#   CUSTOM*)
-#     __spinny__chars="${SPINNY_CUSTOM_CHARS:-/|\\-}"
-#     __spinny__char_size=${SPINNY_CUSTOM_SIZE:-1}
-#     ;;
-#   *)
-#     __spinny__chars="/|\\-"
-#     ;;
-# esac
-# shopt -u nocasematch
+spinny::_set_chars() {
+  if [[ -z $SPINNY_FRAMES ]]; then 
+    __spinny__frames=(- "\\" "|" /)
+  else
+    __spinny__frames=("${SPINNY_FRAMES[@]}")
+  fi
 }
 
 spinny::_finish(){
