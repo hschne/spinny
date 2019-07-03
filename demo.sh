@@ -45,7 +45,16 @@ custom_spinner() {
   printf " \n"
 }
 
-default_spinner 
-dots_spinner
-clock_spinner
-custom_spinner 
+  # SPINNY_FRAMES=(🌎 🌍 🌏)
+# SPINNY_FRAMES=(🕐 🕑 🕒 🕓 🕔 🕕 🕖 🕗 🕘 🕙 🕚 🕛)
+  # SPINNY_FRAMES=("___" "-__" "--_")
+  SPINNY_FRAMES=("." ".." "...")
+  SPINNY_DELAY=0.3
+  spinny::start
+  sleep 4
+  spinny::stop
+  printf " \n"
+# default_spinner 
+# dots_spinner
+# clock_spinner
+# custom_spinner 
